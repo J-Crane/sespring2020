@@ -1,0 +1,597 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import FadeTransition kivy.uix.screenmanager.FallOutTransition
+#:import math math
+
+scrManager:
+    id: scman
+    LoginWin:
+        name: "loginWin"
+    HomeWin:
+        name: "homeWin"
+    LengthWin:
+        name: "lengthWin"
+    TimeWin:
+        name: "timeWin"
+    InchFootWin:
+        name: "inchFootWin"
+    FootYardWin:
+        name: "footYardWin"
+    ResultWindow:
+        name: "result"
+    DayHourWin:
+        name: "dayHourWin"
+    WeekDayWin:
+        name: "weekDayWin"
+    InterFootInch:
+        name: "interFootInchWin"
+    InterFootYard:
+        name: "interFootYardWin"
+    InterDayHour:
+        name: "interDayHourWin"
+    InterWeekDay:
+        name: "interWeekDayWin"
+
+<HomeButton@ButtonBehavior+Image>
+    source: 'home.jpg'
+    size_hint: 0.25,0.1
+    on_release:
+        app.root.current = "homeWin"
+    pos_hint: {"x": 0.35}
+<LeftDownBtn@Button>
+    size_hint: 0.17, 0.12
+    pos_hint: {"x": 0.15 , "top": 0.3}
+    opacity: 0.8
+<RightDownBtn@Button>
+    size_hint: 0.17, 0.12
+    pos_hint: {"x": 0.65, "top": 0.3}
+    opacity: 0.8
+[ClockNumber@Label]:
+    text: str(ctx.i)
+    pos_hint: {"center_x": 0.5+0.42*math.sin(math.pi/6*(ctx.i-12)), "center_y": 0.5+0.42*math.cos(math.pi/6*(ctx.i-12))}
+    font_size: self.height/16
+
+
+<LoginWin>:
+    FloatLayout:
+        Image:
+            source: 'locked.jpg'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+        LeftDownBtn:
+            text: 'I AM A TEACHER'
+            on_release:
+                root.manager.transition = FadeTransition()
+                app.root.current = "homeWin"
+        RightDownBtn:
+            text: 'I AM A STUDENT'
+            on_release:
+                root.manager.transition = FadeTransition()
+                app.root.current = "homeWin"
+
+
+<HomeWin>:
+    FloatLayout:
+        Image:
+            source: 'bgnd.jpg'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 0.3
+            allow_stretch: True
+            keep_ratio: False
+        Image:
+            source: 'metric.jpg'
+            pos_hint: {"x":0, "top":0.7}
+            size_hint: 1,0.7
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+            cols: 1
+            Label:
+                text: "Select a category of conversion"
+                color: 0,0.6,1,0.9
+                font_size: 32
+                size_hint: 1,0.3
+                pos_hint: {"x":0, "top":1}
+            FloatLayout:
+                cols: 2
+                Button:
+                    id: lengthBtn
+                    text: "LENGTH"
+                    font_size: 30
+                    color: 0,0.9,0.9,1
+                    on_release:
+                        root.manager.transition = FadeTransition()
+                        app.root.current = "lengthWin"
+                    size_hint: 0.23,0.1
+                    pos_hint: {"x":0.1, "top":0.3}
+                    opacity: 0.8
+                Button:
+                    id: timeBtn
+                    text: "TIME"
+                    font_size: 30
+                    color: 0,0.9,0.9,1
+                    on_release:
+                        root.manager.transition = FadeTransition()
+                        app.root.current = "timeWin"
+
+                    size_hint: 0.23,0.1
+                    pos_hint: {"x":0.6, "top":0.3}
+                    opacity: 0.8
+                HomeButton:
+
+
+
+<TimeWin>:
+    FloatLayout:
+        Image:
+            source: 'time.jpg'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+        Label:
+            text: "SELECT"
+            color: 0.9,0.4,0.7,1
+            pos_hint: {"x": 0, "top": 0.9}
+            font_size: 40
+            size_hint: 1,0.4
+
+        FloatLayout:
+
+            LeftDownBtn:
+                id: weekToDayBtn
+                text: "Week <--> Day"
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "weekDayWin"
+
+            RightDownBtn:
+                id: hourToMinBtn
+                text: "Hour <--> Day"
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "dayHourWin"
+
+
+            HomeButton:
+
+
+<LengthWin>:
+    FloatLayout:
+        Image:
+            source: 'measure.jpg'
+        Label:
+            text: "Choose your desired conversion"
+            color: 0.9,0.4,0.7,1
+            pos_hint: {"x": 0, "top": 0.9}
+            font_size: 40
+            size_hint: 1,0.4
+
+        FloatLayout:
+            LeftDownBtn:
+                id: inchToFootBtn
+                text: "Inch <--> Feet"
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "inchFootWin"
+                color: 0.9,0.8,0.8,1
+
+            RightDownBtn:
+                id: FeetToYard
+                text: "Feet <--> Yard"
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "footYardWin"
+                color: 0.9,0.8,0.8,1
+
+            HomeButton:
+
+<FootYardWin>:
+    FloatLayout:
+        Image:
+            source: 'footyard.jpg'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+
+            Label:
+                text: "Input the number"
+                color: 0.1,0.5,0.4,1
+                pos_hint: {"x": 0.15, "top": 0.9}
+                font_size: 40
+                size_hint: 0.4,0.4
+            TextInput:
+                id: userFootYard
+                multiline: False
+                color: 0.6,0.4,0.7,1
+                pos_hint: {"x": 0.6, "top": 0.75}
+                font_size: 40
+                size_hint: 0.17,0.1
+                multiline: False
+            LeftDownBtn:
+                id: footToYardBtn
+                text: "Foot => Yard"
+                on_press:
+                    app.root.FeetToYard(userFootYard)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            RightDownBtn:
+                id: yardToFootBtn
+                text: "Yard => Foot"
+                on_press:
+                    app.root.YardToFeet(userFootYard)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            Button:
+                text: "Try Interactive"
+                on_release:
+                    app.root.current = "interFootYardWin"
+                size_hint: 0.2, 0.11
+                pos_hint: {"x": 0.39 , "top": 0.46}
+                opacity: 0.8
+
+            HomeButton:
+
+<InchFootWin>:
+    FloatLayout:
+        Image:
+            source: 'footyard.jpg'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+
+            Label:
+                text: "Input the number"
+                color: 0.1,0.5,0.4,1
+                pos_hint: {"x": 0.15, "top": 0.9}
+                font_size: 40
+                size_hint: 0.4,0.4
+            TextInput:
+                id: userInchFoot
+                multiline: False
+                color: 0.6,0.4,0.7,1
+                pos_hint: {"x": 0.6, "top": 0.75}
+                font_size: 40
+                size_hint: 0.17,0.1
+                multiline: False
+            LeftDownBtn:
+                id: FootToInchBtn
+                text: "Foot => Inch"
+                on_press:
+                    app.root.FeetToInches(userInchFoot)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            RightDownBtn:
+                id: inchToFootBtn
+                text: "Inch => Foot"
+                on_press:
+                    app.root.YardToFeet(userInchFoot)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            Button:
+                text: "Try Interactive"
+                on_release:
+                    app.root.current = "interFootInchWin"
+                size_hint: 0.2, 0.11
+                pos_hint: {"x": 0.39 , "top": 0.46}
+                opacity: 0.8
+
+            HomeButton:
+
+<DayHourWin>:
+    FloatLayout:
+        Image:
+            source: 'time.jpg'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+
+            Label:
+                text: "Input the number"
+                color: 0.3,0.4,0.9,1
+                pos_hint: {"x": 0.15, "top": 0.9}
+                font_size: 40
+                size_hint: 0.4,0.4
+            TextInput:
+                id: userDayHour
+                color: 0.6,0.4,0.7,1
+                pos_hint: {"x": 0.6, "top": 0.75}
+                font_size: 40
+                size_hint: 0.17,0.1
+                multiline: False
+            LeftDownBtn:
+                id: dayToHourBtn
+                text: "Convert Day To Hour"
+                on_press:
+                    app.root.DayToHour(userDayHour)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            RightDownBtn:
+                id: hourToDayBtn
+                text: "Convert Hour to Day"
+                on_press:
+                    app.root.HourToDay(userDayHour)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            Button:
+                text: "Try Interactive"
+                on_release:
+                    app.root.current = "interDayHourWin"
+                size_hint: 0.2, 0.11
+                pos_hint: {"x": 0.39 , "top": 0.46}
+                opacity: 0.8
+
+
+            HomeButton:
+
+<WeekDayWin>:
+    FloatLayout:
+        Image:
+            source: 'calendarback.jpg'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+
+            Label:
+                text: "Input the number"
+                color: 0.3,0.4,0.9,1
+                pos_hint: {"x": 0.15, "top": 0.9}
+                font_size: 40
+                size_hint: 0.4,0.4
+            TextInput:
+                id: userWeekDay
+                color: 0.6,0.4,0.7,1
+                pos_hint: {"x": 0.6, "top": 0.75}
+                font_size: 40
+                size_hint: 0.17,0.1
+                multiline: False
+            LeftDownBtn:
+                id: dayToHourBtn
+                text: "Convert Week To Day"
+                on_press:
+                    app.root.WeekToDay(userWeekDay)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            RightDownBtn:
+                id: hourToDayBtn
+                text: "Convert Day to Week"
+                on_press:
+                    app.root.DayToWeek(userWeekDay)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            Button:
+                text: "Try Interactive"
+                on_release:
+                    app.root.current = "interWeekDayWin"
+                size_hint: 0.2, 0.11
+                pos_hint: {"x": 0.39 , "top": 0.46}
+                opacity: 0.8
+
+
+            HomeButton:
+
+
+
+
+<ResultWindow>:
+    on_enter:
+        answer.text = 'Your Result: ' + app.result
+    FloatLayout:
+        Image:
+            source: 'blank.jpg'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+            Label:
+                id: answer
+                color: 0.2,0.4,0.7,1
+                pos_hint: {"x": 0, "top": 0.8}
+                font_size: 40
+                size_hint: 1,0.4
+
+
+            Button:
+                text: "BACK"
+                font_size: 30
+                color: 0,0.9,0.9,1
+                on_release:
+                    app.root.current = "homeWin"
+                size_hint: 0.23,0.1
+                pos_hint: {"x":0.3, "top": 0.35}
+                opacity: 0.3
+
+            HomeButton:
+#Comments
+<InterFootInch@BoxLayout>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgba: .5, .5, .5, 1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'bckgndn.jpg'
+    Slider:
+        size_hint_y: .25
+
+        id: slider
+        min: 0
+        max: 100
+        step: 1
+        orientation: 'horizontal'
+        canvas:
+            Color:
+                rgba: 0,0.5,0.5,1
+            Rectangle:
+                size: (1 + self.value * 1, 50)
+                pos: (50 ,450)
+            Color:
+                rgba: 0.2,1,0.2,1
+            Rectangle:
+                size: (7 + self.value * 7, 50)
+                pos:(50,250)
+    #Label:
+        #text: str(slider.value)
+       # font_size: 40
+    Label:
+        text: str(slider.value) + ' Feet =' + str(7*slider.value) + ' Inches'
+        pos: (100,100)
+        font_size: 30
+        color: 0.2,0.6,0.6,1
+    HomeButton:
+
+<InterFootYard@BoxLayout>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgba: .5, .5, .5, 1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'bckgndn.jpg'
+    Slider:
+        size_hint_y: .25
+
+        id: slider
+        min: 0
+        max: 100
+        step: 1
+        orientation: 'horizontal'
+        canvas:
+            Color:
+                rgba: 0,0.5,0.5,1
+            Rectangle:
+                size: (1 + self.value * 1, 50)
+                pos: (50 ,450)
+            Color:
+                rgba: 0.2,1,0.2,1
+            Rectangle:
+                size: (3 + self.value * 3, 50)
+                pos:(50,250)
+    #Label:
+        #text: str(slider.value)
+       # font_size: 40
+    Label:
+        text: str(slider.value) + ' Yard =' + str(3*slider.value) + ' Feet'
+        pos: (100,100)
+        font_size: 30
+        color: 0.2,0.6,0.6,1
+    HomeButton:
+
+<InterDayHour>:
+    canvas:
+        Color:
+            rgba: .5, .5, .5, 1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'timeback.jpg'
+    face: face
+    ticks: ticks
+    FloatLayout:
+        id: face
+        size_hint: None, None
+        pos_hint: {"center_x":0.5, "center_y":0.5}
+        size: 0.65*min(root.size), 0.65*min(root.size)
+        canvas:
+            Color:
+                rgb: 0.1, 0.1, 0.1
+            Ellipse:
+                size: self.size
+                pos: self.pos
+                source: 'timeback.jpg'
+        ClockNumber:
+            i: 1
+        ClockNumber:
+            i: 2
+        ClockNumber:
+            i: 3
+        ClockNumber:
+            i: 4
+        ClockNumber:
+            i: 5
+        ClockNumber:
+            i: 6
+        ClockNumber:
+            i: 7
+        ClockNumber:
+            i: 8
+        ClockNumber:
+            i: 9
+        ClockNumber:
+            i: 10
+        ClockNumber:
+            i: 11
+        ClockNumber:
+            i: 12
+    Ticks:
+        id: ticks
+        r: min(root.size)*0.65/2
+    Label:
+        text: "Green : Hour"
+        pos: (250,100)
+        color: 0.4,0.7,0.4,1
+    Label:
+        text: "Blue :  Minute"
+        pos: (250,115)
+        color: 0.1,0.6,0.9,1
+    Label:
+        text: "Orange: Second"
+        pos: (250,130)
+        color: 0.9,0.5,0.2,1
+    Label:
+        text:
+            "1 Hour = 60 Minutes \n1 Minute = 60 Seconds \
+            \n1 Hour = 3600 Seconds"
+        pos: (280, -120)
+        color: 0.5,0.8,0,1
+
+    HomeButton:
+
+<InterWeekDay>
+
+    orientation: 'vertical'
+    canvas:
+        Color:
+            rgba: .5, .5, .5, 1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'bckgndn.jpg'
