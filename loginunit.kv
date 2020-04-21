@@ -73,21 +73,27 @@ scrManager:
         self.source = 'Go Button Down.png'
     on_release:
         self.source = 'Go Button Normal.png'
-        root.verify_credentials()
+        #root.verify_credentials()
+    size_hint: 0.25,0.25
+    pos_hint: {"x": 0.375, "top": 0.29}
 <GoButton2@ButtonBehavior+Image>
     source: 'Go Button Normal.png'
     on_press:
         self.source = 'Go Button Down.png'
     on_release:
         self.source = 'Go Button Normal.png'
-        root.verify_credentials()
+        #root.verify_credentials()
+    size_hint: 0.25,0.25
+    pos_hint: {"x": 0.375, "top": 0.29}
 <GoButton3@ButtonBehavior+Image>
     source: 'Go Button Normal.png'
     on_press:
         self.source = 'Go Button Down.png'
     on_release:
         self.source = 'Go Button Normal.png'
-        root.verify_credentials()
+        #root.verify_credentials()
+    size_hint: 0.25,0.25
+    pos_hint: {"x": 0.375, "top": 0.29}
 
 <HomeButton@ButtonBehavior+Image>
     source: 'Home Button Normal.png'
@@ -292,7 +298,7 @@ scrManager:
             on_release:
                 self.source = "Student Button Normal.png"
                 root.manager.transition = FadeTransition()
-                app.root.current = "homeWin"
+                app.root.current = "userpassWin"
 
         RegisterButton:
 
@@ -681,18 +687,18 @@ scrManager:
             Color:
                 rgba: hex('#FF9933')
             Rectangle:
-                size: (1 + self.value * 1, 50)
+                size: (.5 + self.value * .5, 50)
                 pos: (50 ,340)
             Color:
                 rgba: hex('#33FFFF')
             Rectangle:
-                size: (7 + self.value * 7, 50)
+                size: (6 + self.value * 6, 50)
                 pos:(50,240)
     #Label:
         #text: str(slider.value)
        # font_size: 40
     Label:
-        text: str(slider.value) + ' Feet =' + str(7*slider.value) + ' Inches'
+        text: str(slider.value) + ' Feet = ' + str(12*slider.value) + ' Inches'
         pos: (100,85)
         font_size: 30
         color: 0.2,0.6,0.6,1
@@ -721,19 +727,19 @@ scrManager:
                 #rgba: 0,0.5,0.5,1
                 rgba: hex('#FF9933')
             Rectangle:
-                size: (1 + self.value * 1, 50)
+                size: (2 + self.value * 2, 50)
                 pos: (50 ,340)
             Color:
                 #rgba: 0.2,1,0.2,1
                 rgba: hex('#33FFFF')
             Rectangle:
-                size: (3 + self.value * 3, 50)
+                size: (6 + self.value * 6, 50)
                 pos:(50,240)
     #Label:
         #text: str(slider.value)
        # font_size: 40
     Label:
-        text: str(slider.value) + ' Yard =' + str(3*slider.value) + ' Feet'
+        text: str(slider.value) + ' Yards = ' + str(3*slider.value) + ' Feet'
         pos: (100,85)
         font_size: 30
         color: 0.2,0.6,0.6,1
@@ -819,8 +825,8 @@ scrManager:
             id: passw
             password: True # hide password
         GoButton1:
-            #on_release:
-                #root.verify_credentials()
+            on_release:
+                root.loginn()
                 #login.text = ""
                 #passw.text = ""
 
@@ -849,11 +855,6 @@ scrManager:
                 font_size: 40
                 size_hint: 0.25,0.12
             GoButton2:
-#                text: "GO"
-#                color: 0.2,0.4,0.7,1
-#                pos_hint: {"x": 0.5, "top": 0.25}
-#                font_size: 40
-#                size_hint: 0.08,0.06
                 on_release:
 #                    #root.verify_credentials()
                     root.loginn()
