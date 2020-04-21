@@ -27,8 +27,14 @@ scrManager:
         name: "inchFootWin"
     FootYardWin:
         name: "footYardWin"
-    ResultWindow:
-        name: "result"
+    ResultWindow1:
+        name: "result1"
+    ResultWindow2:
+        name: "result2"
+    ResultWindow3:
+        name: "result3"
+    ResultWindow4:
+        name: "result4"
     DayHourWin:
         name: "dayHourWin"
     WeekDayWin:
@@ -68,25 +74,20 @@ scrManager:
     on_release:
         self.source = 'Go Button Normal.png'
         root.verify_credentials()
-
 <GoButton2@ButtonBehavior+Image>
     source: 'Go Button Normal.png'
-    pos_hint: {"x": 0.395, "top": 0.25}
-    size_hint: 0.22,0.20
     on_press:
         self.source = 'Go Button Down.png'
     on_release:
         self.source = 'Go Button Normal.png'
-        root.loginn()
-
+        root.verify_credentials()
 <GoButton3@ButtonBehavior+Image>
     source: 'Go Button Normal.png'
-    pos_hint: {"x": 0.395, "top": 0.25}
-    size_hint: 0.22,0.20
     on_press:
         self.source = 'Go Button Down.png'
     on_release:
         self.source = 'Go Button Normal.png'
+        root.verify_credentials()
 
 <HomeButton@ButtonBehavior+Image>
     source: 'Home Button Normal.png'
@@ -104,7 +105,7 @@ scrManager:
         self.source = 'Go Back Button Down.png'
     on_release:
         self.source = 'Go Back Button Normal.png'
-        app.root.current = "homeWin"
+        #app.root.current = "homeWin"
     size_hint: 0.35,0.22
     pos_hint: {"x":0.325, "top": 0.37}
 
@@ -399,7 +400,7 @@ scrManager:
                     app.root.FeetToYard(userFootYard)
                 on_release:
                     root.manager.transition = FadeTransition()
-                    app.root.current = "result"
+                    app.root.current = "result1"
 
             YardToFootButton:
                 id: yardToFootBtn
@@ -407,7 +408,7 @@ scrManager:
                     app.root.YardToFeet(userFootYard)
                 on_release:
                     root.manager.transition = FadeTransition()
-                    app.root.current = "result"
+                    app.root.current = "result1"
 
             TryInteractiveButton:
                 on_release:
@@ -445,7 +446,7 @@ scrManager:
                     app.root.FeetToInches(userInchFoot)
                 on_release:
                     root.manager.transition = FadeTransition()
-                    app.root.current = "result"
+                    app.root.current = "result2"
 
             InchToFootButton:
                 id: inchToFootBtn
@@ -453,7 +454,7 @@ scrManager:
                     app.root.InchToFeet(userInchFoot)
                 on_release:
                     root.manager.transition = FadeTransition()
-                    app.root.current = "result"
+                    app.root.current = "result2"
 
             TryInteractiveButton:
                 on_release:
@@ -491,7 +492,7 @@ scrManager:
                     app.root.DayToHour(userDayHour)
                 on_release:
                     root.manager.transition = FadeTransition()
-                    app.root.current = "result"
+                    app.root.current = "result3"
 
             HourToDayButton:
                 id: hourToDayBtn
@@ -499,7 +500,7 @@ scrManager:
                     app.root.HourToDay(userDayHour)
                 on_release:
                     root.manager.transition = FadeTransition()
-                    app.root.current = "result"
+                    app.root.current = "result3"
 
             TryInteractiveButton:
                 on_release:
@@ -534,7 +535,7 @@ scrManager:
                     app.root.WeekToDay(userWeekDay)
                 on_release:
                     root.manager.transition = FadeTransition()
-                    app.root.current = "result"
+                    app.root.current = "result4"
 
             DayToWeekButton:
                 id: hourToDayBtn
@@ -542,7 +543,7 @@ scrManager:
                     app.root.DayToWeek(userWeekDay)
                 on_release:
                     root.manager.transition = FadeTransition()
-                    app.root.current = "result"
+                    app.root.current = "result4"
 
             TryInteractiveButton:
                 on_release:
@@ -553,7 +554,7 @@ scrManager:
 
 # NEED TO MAKE BACKGROUND FOR THIS PAGE!
 
-<ResultWindow>:
+<ResultWindow1>:
     on_enter:
         answer.text = 'Your Result: ' + app.result
     FloatLayout:
@@ -573,6 +574,87 @@ scrManager:
                 size_hint: 1,0.4
 
             BackButton:
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "footYardWin"
+
+            HomeButton:
+
+<ResultWindow2>:
+    on_enter:
+        answer.text = 'Your Result: ' + app.result
+    FloatLayout:
+        Image:
+            source: 'Results Screen.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+            Label:
+                id: answer
+                color: 0.2,0.4,0.7,1
+                pos_hint: {"x": 0, "top": 0.8}
+                font_size: 40
+                size_hint: 1,0.4
+
+            BackButton:
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "inchFootWin"
+
+            HomeButton:
+
+<ResultWindow3>:
+    on_enter:
+        answer.text = 'Your Result: ' + app.result
+    FloatLayout:
+        Image:
+            source: 'Results Screen.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+            Label:
+                id: answer
+                color: 0.2,0.4,0.7,1
+                pos_hint: {"x": 0, "top": 0.8}
+                font_size: 40
+                size_hint: 1,0.4
+
+            BackButton:
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "dayHourWin"
+
+            HomeButton:
+
+<ResultWindow4>:
+    on_enter:
+        answer.text = 'Your Result: ' + app.result
+    FloatLayout:
+        Image:
+            source: 'Results Screen.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+            Label:
+                id: answer
+                color: 0.2,0.4,0.7,1
+                pos_hint: {"x": 0, "top": 0.8}
+                font_size: 40
+                size_hint: 1,0.4
+
+            BackButton:
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "weekDayWin"
 
             HomeButton:
 
@@ -805,13 +887,8 @@ scrManager:
                 font_size: 40
                 size_hint: 0.25,0.12
             GoButton3:
-#                pos_hint: {"x": 0.5, "top": 0.25}
-#                size_hint: 0.08,0.06
                 on_release:
-#                    #root.verify_credentials()
                     root.register()
-#                    #login.text = ""
-#                    #passw.text = ""
                     app.root.current = "afterregisterWin"
 
 <AfterRegisterWin>

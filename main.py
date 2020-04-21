@@ -41,7 +41,13 @@ class DayHourWin(Screen):
     pass
 class WeekDayWin(Screen):
     pass
-class ResultWindow(Screen):
+class ResultWindow1(Screen):
+    pass
+class ResultWindow2(Screen):
+    pass
+class ResultWindow3(Screen):
+    pass
+class ResultWindow4(Screen):
     pass
 
 class LengthWin(Screen):
