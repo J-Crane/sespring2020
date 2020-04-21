@@ -1,5 +1,6 @@
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.image import Image
@@ -11,9 +12,24 @@ from kivy.uix.widget import Widget
 from kivy.uix.slider import Slider
 from math import cos, sin, pi
 from kivy.clock import Clock
-#from KivyCalendar import DatePicker
-import datetime
+from kivy.storage.jsonstore import JsonStore
+from os.path import join
+import sqlite3
+from kivy.uix.label import Label
 
+
+#from KivyCalendar import DatePicker
+#from dbconnect import DbConnect
+import datetime
+#import os
+
+db = sqlite3.connect('Our_data.db')
+db.execute(''' CREATE TABLE IF NOT EXISTS logrecord(
+    username TEXT PRIMARY KEY NOT NULL,
+    password TEXT NOT NULL) ''')
+
+class ImageButton(ButtonBehavior, Image):
+    pass
 
 class HomeWin(Screen):
     pass
@@ -36,6 +52,87 @@ class TimeWin(Screen):
 
 class LoginWin(Screen):
     pass
+
+class UserpassWin(Screen):
+    dbase1 = sqlite3.connect('Our_data.db')
+    def read_Data(self):
+        # from math import *
+        data = db.execute(''' SELECT * FROM employee_records ORDER BY NAME''')
+    def verify_credentials(self):
+        if self.ids["login"].text == "username" and self.ids["passw"].text == "password":
+
+            self.manager.current = "homeWin"
+        else:
+
+            self.manager.current = "userpassWin"
+            self.ids["login"].text = ""
+            self.ids["passw"].text = ""
+    def loginn(self):
+        userId = self.ids["login"].text
+        passwd = self.ids["passw"].text
+        #while True:
+        with sqlite3.connect("Our_data.db") as db1:
+            cursor = db1.cursor()
+        find_user = ("SELECT * FROM logrecord WHERE Username = ? AND Password = ?")
+        #cursor.execute(find_user, [(userId), (passwd)])
+        cursor.execute(find_user, [(userId), (passwd)])
+        results = cursor.fetchall()
+        if results:
+           self.manager.current = "homeWin"
+           #break
+        else:
+           self.manager.current = "userpassWin"
+           self.ids["login"].text = ""
+           self.ids["passw"].text = ""
+
+class RegisterWin(Screen):
+    #username1 = self.ids["newUser"].text
+    #password1 = self.ids["newPass"].text
+    def register(self):
+        username1 = self.ids["newUser"].text
+        password1 = self.ids["newPass"].text
+        db.execute(''' INSERT INTO logrecord(username, password)
+                VALUES(?,?)''', (username1, password1))
+
+        db.commit()
+
+class AfterRegisterWin(Screen):
+    pass
+
+
+# class UserpassWin(Screen):
+#     useridd = ObjectProperty(None)
+#     passwordd = ObjectProperty(None)
+#
+#
+#     def submit(self):
+#         if self.useridd.text != "":
+#             if self.passwordd != "":
+#                 db.add_user(self.email.text, self.password.text, self.namee.text)
+#
+#                 self.reset()
+#
+#                 self.manager.current = "login"
+#             else:
+#                 self.manager.current = "userpassWin"
+#                 # self.ids["login"].text = ""
+#                 # self.ids["passw"].text = ""
+#
+#         else:
+#             self.manager.current = "userpassWin"
+#             # self.ids["login"].text = ""
+#             # self.ids["passw"].text = ""
+#
+#     def login(self):
+#         self.reset()
+#         self.manager.current = "login"
+#
+#     def reset(self):
+#         self.email.text = ""
+#         self.password.text = ""
+#         self.namee.text = ""
+
+
 
 class InterFootInch(Screen):
     # def manipulate(self, slider):
@@ -149,15 +246,17 @@ class MyTouch(Widget):
 
 
 
-class MyMainApp(App):
+class KatMathApp(App):
     result = StringProperty("initialization")
+    #username = StringProperty(None)
+    #password = StringProperty(None)
     #rect1.size = ObjectProperty(0,50)
     # rect2.size = ObjectProperty(0,50)
     def build(self):
-        return Builder.load_file("multiclockunit.kv")
+        return Builder.load_file("loginunit.kv")
 
 
 
 
 if __name__ == "__main__":
-    MyMainApp().run()
+    KatMathApp().run()

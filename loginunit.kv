@@ -1,0 +1,834 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import FadeTransition kivy.uix.screenmanager.FallOutTransition
+#:import hex kivy.utils.get_color_from_hex
+#:import math math
+
+
+
+
+scrManager:
+    id: scman
+    LoginWin:
+        name: "loginWin"
+    UserpassWin:
+        name: "userpassWin"
+    RegisterWin
+        name: "registerWin"
+    AfterRegisterWin
+        name: "afterregisterWin"
+
+    HomeWin:
+        name: "homeWin"
+    LengthWin:
+        name: "lengthWin"
+    TimeWin:
+        name: "timeWin"
+    InchFootWin:
+        name: "inchFootWin"
+    FootYardWin:
+        name: "footYardWin"
+    ResultWindow:
+        name: "result"
+    DayHourWin:
+        name: "dayHourWin"
+    WeekDayWin:
+        name: "weekDayWin"
+    InterFootInch:
+        name: "interFootInchWin"
+    InterFootYard:
+        name: "interFootYardWin"
+    InterDayHour:
+        name: "interDayHourWin"
+    InterWeekDay:
+        name: "interWeekDayWin"
+
+<RegisterButton@ButtonBehavior+Image>
+    source: 'Register Button Normal.png'
+    size_hint: 0.25,0.25
+    pos_hint: {"x": 0.365, "top": 0.24}
+    on_press:
+        self.source = 'Register Button Down.png'
+    on_release:
+        self.source = 'Register Button Normal.png'
+        app.root.current = "registerWin"
+
+<SignInButton@ButtonBehavior+Image>
+    source: 'Sign In Button Normal.png'
+    pos_hint: {"x": 0.32, "top": 0.35}
+    size_hint: 0.35,0.25
+    on_press:
+        self.source = 'Sign In Button Down.png'
+    on_release:
+        self.source = 'Sign In Button Normal.png'
+
+<GoButton1@ButtonBehavior+Image>
+    source: 'Go Button Normal.png'
+    on_press:
+        self.source = 'Go Button Down.png'
+    on_release:
+        self.source = 'Go Button Normal.png'
+        root.verify_credentials()
+
+<GoButton2@ButtonBehavior+Image>
+    source: 'Go Button Normal.png'
+    pos_hint: {"x": 0.395, "top": 0.25}
+    size_hint: 0.22,0.20
+    on_press:
+        self.source = 'Go Button Down.png'
+    on_release:
+        self.source = 'Go Button Normal.png'
+        root.loginn()
+
+<GoButton3@ButtonBehavior+Image>
+    source: 'Go Button Normal.png'
+    pos_hint: {"x": 0.395, "top": 0.25}
+    size_hint: 0.22,0.20
+    on_press:
+        self.source = 'Go Button Down.png'
+    on_release:
+        self.source = 'Go Button Normal.png'
+
+<HomeButton@ButtonBehavior+Image>
+    source: 'Home Button Normal.png'
+    size_hint: 0.25,0.1
+    on_press:
+        self.source = 'Home Button Down.png'
+    on_release:
+        self.source = 'Home Button Normal.png'
+        app.root.current = "homeWin"
+    pos_hint: {"x": 0.37}
+
+<BackButton@ButtonBehavior+Image>
+    source: 'Go Back Button Normal.png'
+    on_press:
+        self.source = 'Go Back Button Down.png'
+    on_release:
+        self.source = 'Go Back Button Normal.png'
+        app.root.current = "homeWin"
+    size_hint: 0.35,0.22
+    pos_hint: {"x":0.325, "top": 0.37}
+
+<TeacherButton@ButtonBehavior+Image>
+    source: 'Teacher Button Normal.png'
+    size_hint: 0.45,0.25
+    pos_hint: {"x":0.05, "top":0.42}
+
+<StudentButton@ButtonBehavior+Image>
+    source: 'Student Button Normal.png'
+    size_hint: 0.45,0.25
+    pos_hint: {"x":0.49, "top":0.42}
+
+<LengthButton@ButtonBehavior+Image>
+    source: 'Length Button Normal.png'
+    #stretch: True
+    size_hint: 0.45,0.25
+    pos_hint: {"x":0.05, "top":0.45}
+    on_press:
+        self.source = 'Length Button Down.png'
+    on_release:
+        self.source = 'Length Button Normal.png'
+
+<TimeButton@ButtonBehavior+Image>
+    source: 'Time Button Normal.png'
+    size_hint: 0.45,0.25
+    pos_hint: {"x":0.49, "top":0.45}
+    on_press:
+        self.source = 'Time Button Down.png'
+    on_release:
+        self.source = 'Time Button Normal.png'
+
+<WeekAndDayButton@ButtonBehavior+Image>
+    source: 'Week & Day Button Normal.png'
+    size_hint: 0.45,0.25
+    pos_hint: {"x":0.05, "top":0.45}
+    on_press:
+        self.source = 'Week & Day Button Down.png'
+    on_release:
+        self.source = 'Week & Day Button Normal.png'
+
+<HourAndDayButton@ButtonBehavior+Image>
+    source: 'Hour & Day Button Normal.png'
+    size_hint: 0.45,0.25
+    pos_hint: {"x":0.49, "top":0.45}
+    on_press:
+        self.source = 'Hour & Day Button Down.png'
+    on_release:
+        self.source = 'Hour & Day Button Normal.png'
+
+<InchAndFeetButton@ButtonBehavior+Image>
+    source: 'Inch & Feet Button Normal.png'
+    size_hint: 0.45,0.25
+    pos_hint: {"x":0.05, "top":0.45}
+    on_press:
+        self.source = 'Inch & Feet Button Down.png'
+    on_release:
+        self.source = 'Inch & Feet Button Normal.png'
+
+<FeetAndYardButton@ButtonBehavior+Image>
+    source: 'Feet & Yard Button Normal.png'
+    size_hint: 0.45,0.25
+    pos_hint: {"x":0.49, "top":0.45}
+    on_press:
+        self.source = 'Feet & Yard Button Down.png'
+    on_release:
+        self.source = 'Feet & Yard Button Normal.png'
+
+#LEFT SIDE BUTTON
+<FootToYardButton@ButtonBehavior+Image>
+    source: 'Foot to Yard Button Normal.png'
+    size_hint: 0.45,0.20
+    pos_hint: {"x":0.05, "top":0.32}
+    on_press:
+        self.source = 'Foot to Yard Button Down.png'
+    on_release:
+        self.source = 'Foot to Yard Button Normal.png'
+
+#RIGHT SIDE BUTTON
+<YardToFootButton@ButtonBehavior+Image>
+    source: 'Yard to Foot Button Normal.png'
+    size_hint: 0.45,0.20
+    pos_hint: {"x":0.49, "top":0.32}
+    on_press:
+        self.source = 'Yard to Foot Button Down.png'
+    on_release:
+        self.source = 'Yard to Foot Button Normal.png'
+
+<FootToInchButton@ButtonBehavior+Image>
+    source: 'Foot to Inch Button Normal.png'
+    size_hint: 0.45,0.20
+    pos_hint: {"x":0.05, "top":0.32}
+    on_press:
+        self.source = 'Foot to Inch Button Down.png'
+    on_release:
+        self.source = 'Foot to Inch Button Normal.png'
+
+<InchToFootButton@ButtonBehavior+Image>
+    source: 'Inch to Foot Button Normal.png'
+    size_hint: 0.45,0.20
+    pos_hint: {"x":0.49, "top":0.32}
+    on_press:
+        self.source = 'Inch to Foot Button Down.png'
+    on_release:
+        self.source = 'Inch to Foot Button Normal.png'
+
+<DayToHourButton@ButtonBehavior+Image>
+    source: 'Day to Hour Button Normal.png'
+    size_hint: 0.45,0.20
+    pos_hint: {"x":0.05, "top":0.32}
+    on_press:
+        self.source = 'Day to Hour Button Down.png'
+    on_release:
+        self.source = 'Day to Hour Button Normal.png'
+
+<HourToDayButton@ButtonBehavior+Image>
+    source: 'Hour to Day Button Normal.png'
+    size_hint: 0.45,0.20
+    pos_hint: {"x":0.49, "top":0.32}
+    on_press:
+        self.source = 'Hour to Day Button Down.png'
+    on_release:
+        self.source = 'Hour to Day Button Normal.png'
+
+<WeekToDayButton@ButtonBehavior+Image>
+    source: 'Week to Day Button Normal.png'
+    size_hint: 0.45,0.20
+    pos_hint: {"x":0.05, "top":0.32}
+    on_press:
+        self.source = 'Week to Day Button Down.png'
+    on_release:
+        self.source = 'Week to Day Button Normal.png'
+
+<DayToWeekButton@ButtonBehavior+Image>
+    source: 'Day to Week Button Normal.png'
+    size_hint: 0.45,0.20
+    pos_hint: {"x":0.49, "top":0.32}
+    on_press:
+        self.source = 'Day to Week Button Down.png'
+    on_release:
+        self.source = 'Day to Week Button Normal.png'
+
+<LeftDownBtn@Button>
+    size_hint: 0.17, 0.12
+    pos_hint: {"x": 0.15 , "top": 0.3}
+<RightDownBtn@Button>
+    size_hint: 0.17, 0.12
+    pos_hint: {"x": 0.65, "top": 0.3}
+
+<TryInteractiveButton@ButtonBehavior+Image>
+    source: 'Try Interactive Button Normal.png'
+    size_hint: 0.45,0.20
+    pos_hint: {"x": 0.265 , "top": 0.49}
+    on_press:
+        self.source = 'Try Interactive Button Down.png'
+    on_release:
+        self.source = 'Try Interactive Button Normal.png'
+
+[ClockNumber@Label]:
+    text: str(ctx.i)
+    pos_hint: {"center_x": 0.5+0.42*math.sin(math.pi/6*(ctx.i-12)), "center_y": 0.5+0.42*math.cos(math.pi/6*(ctx.i-12))}
+    font_size: self.height/16
+
+# LOGIN PAGE WITH STUDENT AND TEACHER BUTTONS
+
+<LoginWin>:
+    FloatLayout:
+        Image:
+            source: 'Welcome Screen.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+        TeacherButton:
+            on_press:
+                self.source = "Teacher Button Down.png"
+            on_release:
+                self.source = "Teacher Button Normal.png"
+                root.manager.transition = FadeTransition()
+                app.root.current = "userpassWin"
+        StudentButton:
+            on_press:
+                self.source = "Student Button Down.png"
+            on_release:
+                self.source = "Student Button Normal.png"
+                root.manager.transition = FadeTransition()
+                app.root.current = "homeWin"
+
+        RegisterButton:
+
+# NEXT PAGE AFTER LOGIN PAGE. LENGTH AND TIME BUTTON CHOICE
+
+<HomeWin>:
+    FloatLayout:
+        Image:
+            source: 'Unit Type Screen.png'
+            pos_hint: {"x":0, "top":1}
+            #size_hint: 1, 0.3
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+            cols: 1
+            FloatLayout:
+                cols: 2
+                LengthButton:
+                    id: lengthBtn
+                    on_release:
+                        root.manager.transition = FadeTransition()
+                        app.root.current = "lengthWin"
+                TimeButton:
+                    id: timeBtn
+                    on_release:
+                        root.manager.transition = FadeTransition()
+                        app.root.current = "timeWin"
+
+                HomeButton:
+
+# USER HAS PICKED TIME AS THE PRACTICE TYPE
+
+<TimeWin>:
+    FloatLayout:
+        Image:
+            source: 'Unit Selection Screen1.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+        FloatLayout:
+
+            WeekAndDayButton:
+                id: weekToDayBtn
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "weekDayWin"
+
+            HourAndDayButton:
+                id: hourToMinBtn
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "dayHourWin"
+
+            HomeButton:
+
+# USER HAS PICKED LENGTH AS THE PRACTICE TYPE
+
+<LengthWin>:
+    FloatLayout:
+        Image:
+            source: 'Unit Selection Screen2.png'
+
+        FloatLayout:
+
+            InchAndFeetButton:
+                id: inchToFootBtn
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "inchFootWin"
+
+            FeetAndYardButton:
+                id: FeetToYard
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "footYardWin"
+
+            HomeButton:
+
+# USER PICKS YARDS AND FEET CONVERSTION
+
+<FootYardWin>:
+    FloatLayout:
+        Image:
+            source: 'Input Screen 1.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+
+            TextInput:
+                id: userFootYard
+                multiline: False
+                color: 0, 0, 0.129, 0
+                pos_hint: {"x": 0.70, "top": 0.80}
+                font_size: 40
+                size_hint: 0.17,0.17
+
+            FootToYardButton:
+                id: footToYardBtn
+                on_press:
+                    app.root.FeetToYard(userFootYard)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            YardToFootButton:
+                id: yardToFootBtn
+                on_press:
+                    app.root.YardToFeet(userFootYard)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            TryInteractiveButton:
+                on_release:
+                    app.root.current = "interFootYardWin"
+                #size_hint: 0.2, 0.11
+                #pos_hint: {"x": 0.39 , "top": 0.46}
+                #opacity: 0.8
+
+            HomeButton:
+
+# USER PICKS INCH AND FEET TO PRACTICE
+
+<InchFootWin>:
+    FloatLayout:
+        Image:
+            source: 'Input Screen 2.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+
+            TextInput:
+                id: userInchFoot
+                multiline: False
+                color: 0, 0, 0.129, 0
+                pos_hint: {"x": 0.726, "top": 0.80}
+                font_size: 40
+                size_hint: 0.18,0.18
+
+            FootToInchButton:
+                id: FootToInchBtn
+                on_press:
+                    app.root.FeetToInches(userInchFoot)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            InchToFootButton:
+                id: inchToFootBtn
+                on_press:
+                    app.root.YardToFeet(userInchFoot)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            TryInteractiveButton:
+                on_release:
+                    app.root.current = "interFootInchWin"
+                #size_hint: 0.2, 0.11
+                #pos_hint: {"x": 0.60 , "top": 0.46}
+                #opacity: 0.8
+
+            HomeButton:
+
+# USER PICKS HOUR & DAY BUTTON
+
+<DayHourWin>:
+    FloatLayout:
+        Image:
+            source: 'Input Screen 3.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+
+            TextInput:
+                id: userDayHour
+                color: 0.6,0.4,0.7,1
+                pos_hint: {"x": 0.75, "top": 0.75}
+                font_size: 40
+                size_hint: 0.17,0.1
+                multiline: False
+
+            DayToHourButton:
+                id: dayToHourBtn
+                on_press:
+                    app.root.DayToHour(userDayHour)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            HourToDayButton:
+                id: hourToDayBtn
+                on_press:
+                    app.root.HourToDay(userDayHour)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            TryInteractiveButton:
+                on_release:
+                    app.root.current = "interDayHourWin"
+
+            HomeButton:
+
+# USER PICKED WEEK AND DAY
+
+<WeekDayWin>:
+    FloatLayout:
+        Image:
+            source: 'Input Screen 4.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+
+            TextInput:
+                id: userWeekDay
+                color: 0.6,0.4,0.7,1
+                pos_hint: {"x": 0.70, "top": 0.75}
+                font_size: 40
+                size_hint: 0.17,0.1
+                multiline: False
+
+            WeekToDayButton:
+                id: dayToHourBtn
+                on_press:
+                    app.root.WeekToDay(userWeekDay)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            DayToWeekButton:
+                id: hourToDayBtn
+                on_press:
+                    app.root.DayToWeek(userWeekDay)
+                on_release:
+                    root.manager.transition = FadeTransition()
+                    app.root.current = "result"
+
+            TryInteractiveButton:
+                on_release:
+                    app.root.current = "interWeekDayWin"
+
+            HomeButton:
+
+
+# NEED TO MAKE BACKGROUND FOR THIS PAGE!
+
+<ResultWindow>:
+    on_enter:
+        answer.text = 'Your Result: ' + app.result
+    FloatLayout:
+        Image:
+            source: 'Results Screen.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+            Label:
+                id: answer
+                color: 0.2,0.4,0.7,1
+                pos_hint: {"x": 0, "top": 0.8}
+                font_size: 40
+                size_hint: 1,0.4
+
+            BackButton:
+
+            HomeButton:
+
+#Comments
+<InterFootInch@BoxLayout>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            #rgba: .5, .5, .5, 1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'Feet and Inches Interactive Screen.png'
+    Slider:
+        size_hint_y: .35
+
+        id: slider
+        min: 0
+        max: 100
+        step: 1
+        orientation: 'horizontal'
+        canvas:
+            Color:
+                rgba: hex('#FF9933')
+            Rectangle:
+                size: (1 + self.value * 1, 50)
+                pos: (50 ,340)
+            Color:
+                rgba: hex('#33FFFF')
+            Rectangle:
+                size: (7 + self.value * 7, 50)
+                pos:(50,240)
+    #Label:
+        #text: str(slider.value)
+       # font_size: 40
+    Label:
+        text: str(slider.value) + ' Feet =' + str(7*slider.value) + ' Inches'
+        pos: (100,85)
+        font_size: 30
+        color: 0.2,0.6,0.6,1
+    HomeButton:
+
+<InterFootYard@BoxLayout>:
+    orientation: 'vertical'
+    canvas:
+        Color:
+            #rgba: .5, .5, .5, 1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'Feet and Yards Interactive Screen.png'
+    Slider:
+        size_hint_y: .35
+
+        id: slider
+        min: 0
+        max: 100
+        step: 1
+        orientation: 'horizontal'
+        canvas:
+            Color:
+                #rgba: 0,0.5,0.5,1
+                rgba: hex('#FF9933')
+            Rectangle:
+                size: (1 + self.value * 1, 50)
+                pos: (50 ,340)
+            Color:
+                #rgba: 0.2,1,0.2,1
+                rgba: hex('#33FFFF')
+            Rectangle:
+                size: (3 + self.value * 3, 50)
+                pos:(50,240)
+    #Label:
+        #text: str(slider.value)
+       # font_size: 40
+    Label:
+        text: str(slider.value) + ' Yard =' + str(3*slider.value) + ' Feet'
+        pos: (100,85)
+        font_size: 30
+        color: 0.2,0.6,0.6,1
+    HomeButton:
+
+<InterDayHour>:
+    canvas:
+        Color:
+            rgba: .5, .5, .5, 1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: 'timeback.jpg'
+    face: face
+    ticks: ticks
+    FloatLayout:
+        id: face
+        size_hint: None, None
+        pos_hint: {"center_x":0.5, "center_y":0.5}
+        size: 0.65*min(root.size), 0.65*min(root.size)
+        canvas:
+            Color:
+                rgb: 0.1, 0.1, 0.1
+            Ellipse:
+                size: self.size
+                pos: self.pos
+                source: 'timeback.jpg'
+        ClockNumber:
+            i: 1
+        ClockNumber:
+            i: 2
+        ClockNumber:
+            i: 3
+        ClockNumber:
+            i: 4
+        ClockNumber:
+            i: 5
+        ClockNumber:
+            i: 6
+        ClockNumber:
+            i: 7
+        ClockNumber:
+            i: 8
+        ClockNumber:
+            i: 9
+        ClockNumber:
+            i: 10
+        ClockNumber:
+            i: 11
+        ClockNumber:
+            i: 12
+    Ticks:
+        id: ticks
+        r: min(root.size)*0.65/2
+    Label:
+        text: "Green : Hour"
+        pos: (250,100)
+        color: 0.4,0.7,0.4,1
+    Label:
+        text: "Blue :  Minute"
+        pos: (250,115)
+        color: 0.1,0.6,0.9,1
+    Label:
+        text: "Orange: Second"
+        pos: (250,130)
+        color: 0.9,0.5,0.2,1
+    Label:
+        text:
+            "1 Hour = 60 Minutes \n1 Minute = 60 Seconds \
+            \n1 Hour = 3600 Seconds"
+        pos: (280, -120)
+        color: 0.5,0.8,0,1
+
+    HomeButton:
+
+<UserPassWin>
+    #name: "login_page"
+    BoxLayout:
+        TextInput:
+            id: login
+        TextInput:
+            id: passw
+            password: True # hide password
+        GoButton1:
+            #on_release:
+                #root.verify_credentials()
+                #login.text = ""
+                #passw.text = ""
+
+    FloatLayout:
+        Image:
+            source: 'Sign In Screen.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+            TextInput:
+                id: login
+                text: "User ID"
+                color: 0.2,0.4,0.7,1
+                pos_hint: {"x": 0.22, "top": 0.45}
+                font_size: 40
+                size_hint: 0.25,0.12
+            TextInput:
+                id: passw
+                text: "Password"
+                password: True # hide password
+                color: 0.2,0.4,0.7,1
+                pos_hint: {"x": 0.53, "top": 0.45}
+                font_size: 40
+                size_hint: 0.25,0.12
+            GoButton2:
+#                text: "GO"
+#                color: 0.2,0.4,0.7,1
+#                pos_hint: {"x": 0.5, "top": 0.25}
+#                font_size: 40
+#                size_hint: 0.08,0.06
+                on_release:
+#                    #root.verify_credentials()
+                    root.loginn()
+#                    #login.text = ""
+#                    #passw.text = ""
+
+
+<RegisterWin>
+    FloatLayout:
+        Image:
+            source: 'Register Screen.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+            TextInput:
+                id: newUser
+                text: "User ID"
+                color: 0.2,0.4,0.7,1
+                pos_hint: {"x": 0.22, "top": 0.45}
+                font_size: 40
+                size_hint: 0.25,0.12
+            TextInput:
+                id: newPass
+                text: "Password"
+                password: True # hide password
+                color: 0.2,0.4,0.7,1
+                pos_hint: {"x": 0.53, "top": 0.45}
+                font_size: 40
+                size_hint: 0.25,0.12
+            GoButton3:
+#                pos_hint: {"x": 0.5, "top": 0.25}
+#                size_hint: 0.08,0.06
+                on_release:
+#                    #root.verify_credentials()
+                    root.register()
+#                    #login.text = ""
+#                    #passw.text = ""
+                    app.root.current = "afterregisterWin"
+
+<AfterRegisterWin>
+    FloatLayout:
+        Image:
+            source: 'Account Screen.png'
+            pos_hint: {"x":0, "top":1}
+            size_hint: 1, 1
+            allow_stretch: True
+            keep_ratio: False
+
+        FloatLayout:
+            SignInButton:
+#                text: "SIGN IN"
+#                color: 0.2,0.4,0.7,1
+#                pos_hint: {"x": 0.5, "top": 0.35}
+#                font_size: 40
+#                size_hint: 0.08,0.06
+                on_release:
+                    app.root.current = "loginWin"
