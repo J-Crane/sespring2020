@@ -450,7 +450,7 @@ scrManager:
             InchToFootButton:
                 id: inchToFootBtn
                 on_press:
-                    app.root.YardToFeet(userInchFoot)
+                    app.root.InchToFeet(userInchFoot)
                 on_release:
                     root.manager.transition = FadeTransition()
                     app.root.current = "result"
