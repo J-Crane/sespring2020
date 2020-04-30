@@ -394,6 +394,7 @@ scrManager:
 
             TextInput:
                 id: userFootYard
+                text: "1"
                 multiline: False
                 color: 0, 0, 0.129, 0
                 pos_hint: {"x": 0.70, "top": 0.80}
@@ -440,6 +441,7 @@ scrManager:
 
             TextInput:
                 id: userInchFoot
+                text: "1"
                 multiline: False
                 color: 0, 0, 0.129, 0
                 pos_hint: {"x": 0.726, "top": 0.80}
@@ -486,6 +488,7 @@ scrManager:
 
             TextInput:
                 id: userDayHour
+                text: "1"
                 color: 0.6,0.4,0.7,1
                 pos_hint: {"x": 0.75, "top": 0.75}
                 font_size: 40
@@ -529,6 +532,7 @@ scrManager:
 
             TextInput:
                 id: userWeekDay
+                text: "1"
                 color: 0.6,0.4,0.7,1
                 pos_hint: {"x": 0.70, "top": 0.75}
                 font_size: 40
@@ -543,6 +547,7 @@ scrManager:
                     root.manager.transition = FadeTransition()
                     app.root.current = "result4"
 
+
             DayToWeekButton:
                 id: hourToDayBtn
                 on_press:
@@ -551,9 +556,7 @@ scrManager:
                     root.manager.transition = FadeTransition()
                     app.root.current = "result4"
 
-            TryInteractiveButton:
-                on_release:
-                    app.root.current = "interWeekDayWin"
+
 
             HomeButton:
 
